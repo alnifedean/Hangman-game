@@ -1,0 +1,56 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+main{
+    height: 100vh;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    background-color: blueviolet;
+}
+
+.main-container{
+    width: 75vw;
+    display: grid;
+    background-color: aqua;
+    min-height: 400px;
+}
+
+.title-container{
+    background-color: blue;
+    height: 50px;
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    letter-spacing: 5px;
+}
+
+.title{
+    
+}
+
+.game-container{
+    background-color: green;
+    height: 250px;
+    display: flex;
+    direction: row;
+}
+
+.lives-draw{
+    background-color: palevioletred;
+    width: 50%;
+    height: 100%;
+}
+
+.letters{
+    background-color: yellow;
+    width: 50%;
+    height: 100%;
+}
+
+.word-letters{
+    background-color: brown;
+    height: 100px;
+}
