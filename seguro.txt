@@ -19,7 +19,7 @@ function ocultarPalabra (palabra){
 
 function valorarLetra (palabraElegida, palabraOculta, ){
     let largoLista = palabraElegida.length
-    let letraElegida = prompt("Ingresa la letra elegida: ") //Aqui la variante "letters"
+    let letraElegida = prompt("Ingresa la letra elegida: ")
     let acierto = 1
     for (let i=0;largoLista>i;i++)
         if (letraElegida==palabraElegida[i]){
@@ -56,12 +56,8 @@ while(true){
         document.write(`Ganaste, te quedaron ${vidas} vidas`)
         break
     }
-
-    
-    wordLetters.textContent = palabraOculta
+    alert(`Tu palabra es la siguiente: `+ palabraOculta)
     palabraOculta, acierto=valorarLetra(palabraElegida,palabraOculta)
     vidas=vidas-acierto
-    if (acierto==1 && vidas>0){livesDraw.textContent = `Perdiste una vida, te quedan ${vidas}`} //Aqui livesDraw para vidas
-    // if (acierto==1 && vidas>0){alert(`Perdiste una vida, te quedan ${vidas}`)} Aqui livesDraw para vidas
+    if (acierto==1 && vidas>0){alert(`Perdiste una vida, te quedan ${vidas}`)}
 }
-

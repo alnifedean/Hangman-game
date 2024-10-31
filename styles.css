@@ -48,9 +48,23 @@ main{
     background-color: yellow;
     width: 50%;
     height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.single-letter{
+    width: 4rem;
+    height: 3.75rem;
+    font-weight: bolder;
 }
 
 .word-letters{
     background-color: brown;
     height: 100px;
+    text-align: center;
+    align-content: center;
+    font-size: 4rem;
+
 }
