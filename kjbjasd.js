@@ -2,6 +2,18 @@ let livesDraw = document.getElementById("lives-draw");
 let letters = document.getElementById("letters");
 let wordLetters = document.getElementById("word-letters");
 
+const imagenesVidas = [
+    "images/ahorcado6.jpg",
+    "images/ahorcado5.jpg",
+    "images/ahorcado4.jpg",
+    "images/ahorcado3.jpg",
+    "images/ahorcado2.jpg",
+    "images/ahorcado1.jpg",
+    "images/ahorcado0.jpg"
+];
+
+livesDraw.innerHTML = `<img src="${imagenesVidas[0]}" alt="vidas restantes" />`;
+
 function elegirPalabra (lista){
     let largoLista = lista.length
     let palabra = Math.floor(Math.random()*largoLista)
@@ -17,16 +29,33 @@ function ocultarPalabra (palabra){
     return palabraEncriptada
 };
 
-function valorarLetra (palabraElegida, palabraOculta, ){
-    let largoLista = palabraElegida.length
-    let letraElegida = prompt("Ingresa la letra elegida: ") //Aqui la variante "letters"
+function valorarLetra (palabraElegida, palabraOculta, letraElegida){
     let acierto = 1
-    for (let i=0;largoLista>i;i++)
+    for (let i=0;palabraElegida.length>i;i++)
         if (letraElegida==palabraElegida[i]){
             palabraOculta[i]=letraElegida;
             acierto=0
-        } else {continue}
-    return palabraOculta, acierto
+        }
+    return [palabraOculta, acierto]
+}
+
+function actualizarJuego (letraElegida){
+    console.log(palabraElegida)
+    if(vidas===1){
+        livesDraw.innerHTML = `<img src="images/ahorcado0.jpg" alt="vidas restantes" />`;
+        alert("Perdiste");
+        return
+    } 
+
+    let [nuevaPalabraOculta, acierto]=valorarLetra(palabraElegida, palabraOculta, letraElegida)
+    palabraOculta = nuevaPalabraOculta
+    wordLetters.textContent = palabraOculta
+    if (acierto===1){vidas--;livesDraw.innerHTML = `<img src="${imagenesVidas[6 - vidas]}" alt="vidas restantes" />`;}
+
+    if (palabraElegida==palabraOculta.join('')){
+        alert(`Ganaste, te quedaron ${vidas} vidas`);
+        return
+    }
 }
 
 const listaPalabras = [
@@ -37,31 +66,18 @@ const listaPalabras = [
     "acantilado", "caverna", "pradera", "sendero", "brisa", "hierba", "cumbre", "marea",
     "islote", "cueva", "pantano", "paramo", "selva", "espejismo", "murmullo", "oceano", "brillo"
 ];
-let vidas = 5;
 
-let palabraElegida = elegirPalabra(listaPalabras)
-let palabraOculta = ocultarPalabra(palabraElegida)
+let vidas = 6;
+let palabraElegida = elegirPalabra(listaPalabras);
+let palabraOculta = ocultarPalabra(palabraElegida);
+wordLetters.textContent = palabraOculta
 
 alert("Bienvenido/a al juego del ahorcado")
 alert(`Inicias con ${vidas} vidas`)
 
-while(true){
-    let palabraOcultaAntes=palabraOculta
-    if(vidas===0){
-        alert("Perdiste");
-        document.write(`Perdiste, la palabra era ${palabraElegida}`)
-        break
-    } else if (palabraElegida==palabraOculta.join('')){
-        alert("Ganaste");
-        document.write(`Ganaste, te quedaron ${vidas} vidas`)
-        break
-    }
-
-    
-    wordLetters.textContent = palabraOculta
-    palabraOculta, acierto=valorarLetra(palabraElegida,palabraOculta)
-    vidas=vidas-acierto
-    if (acierto==1 && vidas>0){livesDraw.textContent = `Perdiste una vida, te quedan ${vidas}`} //Aqui livesDraw para vidas
-    // if (acierto==1 && vidas>0){alert(`Perdiste una vida, te quedan ${vidas}`)} Aqui livesDraw para vidas
-}
-
+document.querySelectorAll(".single-letter").forEach(button => {
+    button.addEventListener("click", () => {
+        actualizarJuego(button.id);
+        button.disabled = true;
+    });
+});
