@@ -21,12 +21,25 @@ main{
 .title-container{
     background-color: blue;
     height: 50px;
-    display: grid;
-    align-content: center;
-    justify-items: center;
+    display: flex;
+    justify-content: space-around;
     letter-spacing: 5px;
 }
 
+.title{
+    background-color: bisque;
+    height: 100%;
+    margin: 0;
+}
+
+.title-container div{
+    background-color: brown;
+    display: flex;
+}
+
+.title-container div{
+    margin: 5px;
+}
 
 .game-container{
     background-color: green;
@@ -39,6 +52,11 @@ main{
     background-color: palevioletred;
     width: 50%;
     height: 100%;
+    display: flex;
+}
+
+.lives-draw img{
+    margin: auto;
 }
 
 .letters{

@@ -39,11 +39,18 @@ function valorarLetra (palabraElegida, palabraOculta, letraElegida){
     return [palabraOculta, acierto]
 }
 
+function desactivarBotones() {
+    document.querySelectorAll(".single-letter").forEach(button => {
+        button.disabled = true;
+    });
+}
+
 function actualizarJuego (letraElegida){
     console.log(palabraElegida)
     if(vidas===1){
         livesDraw.innerHTML = `<img src="images/ahorcado0.jpg" alt="vidas restantes" />`;
         alert("Perdiste");
+        desactivarBotones();
         return
     } 
 
@@ -54,9 +61,12 @@ function actualizarJuego (letraElegida){
 
     if (palabraElegida==palabraOculta.join('')){
         alert(`Ganaste, te quedaron ${vidas} vidas`);
+        desactivarBotones();
         return
     }
 }
+
+
 
 const listaPalabras = [
     "cielo", "mar", "montaña", "arbol", "sol", "luna", "estrella", "viento", "fuego",
