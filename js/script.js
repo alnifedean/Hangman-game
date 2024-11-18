@@ -3,6 +3,7 @@ let letters = document.getElementById("letters");
 let wordLetters = document.getElementById("word-letters");
 let resetGame = document.getElementById("reset-button");
 
+
 const imagenesVidas = [
     "images/ahorcado6.jpg",
     "images/ahorcado5.jpg",
@@ -47,12 +48,6 @@ function desactivarBotones() {
 function actualizarJuego (letraElegida){
     console.log(palabraElegida)
     resetGame.addEventListener("click", resetJuego);
-    if(vidas===1){
-        livesDraw.innerHTML = `<img src="images/ahorcado0.jpg" alt="vidas restantes" />`;
-        alert("Perdiste");
-        desactivarBotones();
-        return
-    } 
 
     let [nuevaPalabraOculta, acierto]=valorarLetra(palabraElegida, palabraOculta, letraElegida)
     palabraOculta = nuevaPalabraOculta
@@ -60,10 +55,18 @@ function actualizarJuego (letraElegida){
     if (acierto===1){vidas--;livesDraw.innerHTML = `<img src="${imagenesVidas[6 - vidas]}" alt="vidas restantes" />`;}
 
     if (palabraElegida==palabraOculta.join('')){
+        if(vidas===1){alert(`Ganaste, te quedo ${vidas} vida`);} else {
         alert(`Ganaste, te quedaron ${vidas} vidas`);
-        desactivarBotones();
+        desactivarBotones();}
         return
     }
+
+    if(vidas===0){
+        livesDraw.innerHTML = `<img src="images/ahorcado0.jpg" alt="vidas restantes" />`;
+        alert("Perdiste");
+        desactivarBotones();
+        return
+    } 
 }
 
 function resetJuego() {
@@ -90,10 +93,10 @@ const listaPalabras = [
 let vidas = 6;
 let palabraElegida = elegirPalabra(listaPalabras);
 let palabraOculta = ocultarPalabra(palabraElegida);
-wordLetters.textContent = palabraOculta.join(" ")
+wordLetters.textContent = palabraOculta.join(" ");
 
-alert("Bienvenido/a al juego del ahorcado")
-alert(`Inicias con ${vidas} vidas`)
+alert("Bienvenido/a al juego del ahorcado");
+alert(`Inicias con ${vidas} vidas`);
 
 document.querySelectorAll(".single-letter").forEach(button => {
     button.addEventListener("click", () => {
