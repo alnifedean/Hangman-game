@@ -1,6 +1,7 @@
 let livesDraw = document.getElementById("lives-draw");
 let letters = document.getElementById("letters");
 let wordLetters = document.getElementById("word-letters");
+let resetGame = document.getElementById("reset-button");
 
 const imagenesVidas = [
     "images/ahorcado6.jpg",
@@ -15,15 +16,13 @@ const imagenesVidas = [
 livesDraw.innerHTML = `<img src="${imagenesVidas[0]}" alt="vidas restantes" />`;
 
 function elegirPalabra (lista){
-    let largoLista = lista.length
-    let palabra = Math.floor(Math.random()*largoLista)
+    let palabra = Math.floor(Math.random()*(lista.length))
     return lista[palabra]
 };
 
 function ocultarPalabra (palabra){
-    let largoLista = palabra.length
     let palabraEncriptada = [];
-    for (let i=0;i<largoLista;i++){
+    for (let i=0;i<(palabra.length);i++){
         palabraEncriptada.push("_")
     }
     return palabraEncriptada
@@ -47,6 +46,7 @@ function desactivarBotones() {
 
 function actualizarJuego (letraElegida){
     console.log(palabraElegida)
+    resetGame.addEventListener("click", resetJuego);
     if(vidas===1){
         livesDraw.innerHTML = `<img src="images/ahorcado0.jpg" alt="vidas restantes" />`;
         alert("Perdiste");
@@ -56,7 +56,7 @@ function actualizarJuego (letraElegida){
 
     let [nuevaPalabraOculta, acierto]=valorarLetra(palabraElegida, palabraOculta, letraElegida)
     palabraOculta = nuevaPalabraOculta
-    wordLetters.textContent = palabraOculta
+    wordLetters.textContent = palabraOculta.join(" ")
     if (acierto===1){vidas--;livesDraw.innerHTML = `<img src="${imagenesVidas[6 - vidas]}" alt="vidas restantes" />`;}
 
     if (palabraElegida==palabraOculta.join('')){
@@ -66,6 +66,16 @@ function actualizarJuego (letraElegida){
     }
 }
 
+function resetJuego() {
+    vidas = 6;
+    palabraElegida = elegirPalabra(listaPalabras);
+    palabraOculta = ocultarPalabra(palabraElegida);
+    wordLetters.textContent = palabraOculta.join(" ");
+    livesDraw.innerHTML = `<img src="${imagenesVidas[0]}" alt="vidas restantes" />`;
+    document.querySelectorAll(".single-letter").forEach(button => {
+        button.disabled = false;
+    });
+}
 
 
 const listaPalabras = [
@@ -80,7 +90,7 @@ const listaPalabras = [
 let vidas = 6;
 let palabraElegida = elegirPalabra(listaPalabras);
 let palabraOculta = ocultarPalabra(palabraElegida);
-wordLetters.textContent = palabraOculta
+wordLetters.textContent = palabraOculta.join(" ")
 
 alert("Bienvenido/a al juego del ahorcado")
 alert(`Inicias con ${vidas} vidas`)
