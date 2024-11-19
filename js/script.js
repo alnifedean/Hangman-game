@@ -88,6 +88,10 @@ function actualizarJuego (palabraElegida, palabraOculta, letraElegida){
 
     //En este condicional se valora si el usaurio ya no tiene vidas, si es asi, muestra una alerta de que perdio, se completa el monito con la ultima imagen y se desactivan los botones.
     if(vidas===0){
+        for(let i=0;i<palabraElegida.length;i++){
+            palabraOculta[i]=palabraElegida[i]
+        }
+        wordLetters.textContent = palabraOculta.join(" ");
         livesDraw.innerHTML = `<img src="images/ahorcado0.jpg" alt="vidas restantes" />`;
         alert("Perdiste");
         desactivarBotones();
